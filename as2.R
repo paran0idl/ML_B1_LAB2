@@ -57,6 +57,7 @@ get_misclassfication_rate(pred_prunedTree,test$good_bad)
 
 
 library(e1071)
+
 naive_bayes_model=naiveBayes(good_bad~.,train)
 pred_bayes_train=predict(naive_bayes_model,train,type="raw")
 get_misclassfication_rate(pred_bayes_train,train$good_bad)
@@ -70,7 +71,6 @@ get_misclassfication_rate(pred_bayes_test,test$good_bad)
 TPR<-c()
 FPR<-c()
 
-mis_rate<-c()
 for(pi in seq(0.05,0.95,0.05)){
   res<-ifelse(pred_prunedTree[,2]>pi,1,0)
   actual<-ifelse(test$good_bad=="good",1,0)
@@ -114,3 +114,19 @@ for(pi in seq(0.05,0.95,0.05)){
 TPR
 FPR
 ggplot()+geom_line(aes(x=FPR,y=TPR))
+
+
+
+# loss matrix
+x=matrix(c(0,10,1,0),nrow = 2)
+x
+loss_matrix_bayes=naiveBayes(x=x,good_bad~.,train)
+
+
+
+
+
+
+
+
+
